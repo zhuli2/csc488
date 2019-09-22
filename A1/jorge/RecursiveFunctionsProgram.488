@@ -1,0 +1,7 @@
+{
+    function recursive_factorial (n : integer) : integer {
+        if n < 2
+        then return n
+        else return n * factorial(n - 1)
+    }
+}

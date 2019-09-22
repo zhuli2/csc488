@@ -1,0 +1,41 @@
+{
+    var counter, accumulator : integer
+    counter := 0
+    accumulator := 1
+
+    procedure increment_counter {
+        counter := counter + 1
+    }
+
+    function reset_accumulator : integer {
+        accumulator := 1
+        return with accumulator
+    }
+
+    function iterative_factorial ( n : integer) {
+        if n < 0
+        % Let's just deal with positive factorials
+        then return with -1
+        
+        procedure update_accumulator ( update_amount: integer ) {
+            accumulator := accumulator * update_amount
+
+            % Keep track of all total iterations
+            increment_counter
+
+            return
+        }
+
+        accumulator := reset_accumulator
+        while n > 1
+        do {
+            update_accumulator (n)
+            n := n - 1
+        }
+        return with accumulator
+    }
+
+    write "4! is equal to", iterative_factorial (4)
+    write "6! is equal to", iterative_factorial (6)
+    write "We've done ", counter,  " iterations for computing factorials"
+}

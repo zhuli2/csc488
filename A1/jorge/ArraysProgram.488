@@ -1,0 +1,5 @@
+{
+    var array_simple[5] : integer
+    var array_generalBound[-2..2] : integer
+    var array_nested[5, 0..4] : integer
+}

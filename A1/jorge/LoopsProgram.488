@@ -1,0 +1,90 @@
+{
+    var i, fifth_power: integer
+    i := 0
+    fifth_power := 5
+
+    while i < 5
+    do {
+        fifth_power := fifth_power * fifth_power
+        i := i + 1
+    }
+    write 5, " to the fifth power, otherwise written as 5^5, is equal to ", fifth_power
+
+    var num_squared : integer
+    num_squared := 2
+
+    repeat {
+        num_squared := num_squared + 1
+    } until num_squared * num_squared >= fifth_power
+    write num_squared, " is the first positive integer whose square is greater or equal 5^5"
+
+    % An array of positive integers which are elevated to the power of its indices
+    var powers[5] : integer
+    powers[1] := fifth_power
+    powers[2] := num_squared
+    powers[5] := 5
+
+    var base_num, k, accumulator : integer
+    i := 3
+    base_num := 2
+
+    % Fill out the rest of the array, indices (exponents) 3 and 4
+    while i < 5
+    do {
+        k := 1
+        repeat {
+            accumulator := 1
+            while k <= i
+            do {
+                accumulator := accumulator * base_num
+                k := k + 1
+            }
+            if accumulator >= fifth_power
+            then {
+                % Repeat until base_num ^ i >= 5^5
+                powers[i] := base_num
+                exit
+            }
+            else base_num := base_num + 1
+        } until false
+        % Reset the base number to 2 for the next exponent, and increment the exponent
+        base_num := 2
+        i := i + 1
+    }
+
+    % Little minigame for user to make guesses
+    var exponent_choice, answer : integer
+
+    write "The goal is to guess a number that when elevated to a certain power is greater than or equal to ", fifth_power 
+    while true
+    do {
+        write "Here are the commands for the game:", newline
+        write "At any point, when prompted, you may enter -1 to exit the game"
+        write "When first prompted, enter an integer exponent between 1 and 5"
+        write "Next, enter an integer that will act as the base, this will be your guess."
+        write "When prompted for a base number, you may enter the integer 0 to try a new exponent"
+
+        repeat {
+            write "Enter an integer exponent between 1 and 5"
+            read exponent_choice
+
+            if exponent_choice = -1
+            then exit 2
+        } until exponent_choice >= 1 and exponent_choice <= 5
+
+        while true
+        do {
+            write "Enter a base number for the exponent ", exponent_choice
+            read answer
+
+            if answer = -1
+            then exit 2
+
+            exit when answer = 0
+
+            if answer >= powers[exponent_choice]
+            then write "Correct! ", answer, "^", exponent_choice, " is greater than or equal to", fifth_power
+            else write "Wrong! ", answer, "^", exponent_choice, " is less than", fifth_power
+        }
+    }
+}

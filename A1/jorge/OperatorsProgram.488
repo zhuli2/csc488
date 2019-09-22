@@ -1,0 +1,37 @@
+{
+    var a, b, c, d: integer
+
+    a := 10
+    b := -5
+    c := a + b    % 5
+    d := a - b    % 15
+
+    var e, f : integer
+
+    if c > d    % false
+    then e := c * a
+    else e := c / b  % -1
+
+    f := e * a   % -10
+
+    var g, h : boolean
+
+    if f <= b or f >= a     % true
+    then {
+        g := true
+        h := true
+    }
+    else {
+        g := true
+        h := false
+    }
+
+    var final_boss : integer
+
+    if (g and h) or (not g and not h)
+    then {
+        if e < f    % false
+        then final_boss := (e * f = a ? a : b)
+        else final_boss := (f * 2 = b ? a : b)
+    }
+}
